@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz ECD</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+  <style>
+    body {
+      background: url("Imagens/2.jpg") center/cover no-repeat scroll;
+    }
+    .card {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 15px;
+    }
+    #resultado {
+      display: none;
+    }
+    #gabarito {
+      display: none;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="Logo">
+        <img src="Imagens/logo.png" alt="Logo" width="50" height="50" class="me-2 rounded-circle">
+        <h1><strong>ECD</strong></h1>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuECD">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menuECD">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  
+  <main class="flex-grow-1 d-flex justify-content-center align-items-center py-4">
+    <div class="card shadow-lg p-4 text-center" style="max-width: 600px; width: 100%;">
+      <div id="quiz">
+        <img id="imgPergunta" class="card-img-top rounded mb-3" src="" alt="Imagem da pergunta" style="display: none;">
+        <h5 id="textoPergunta" class="mb-4"></h5>
+        <div id="opcoes" class="d-grid gap-2 mb-4"></div>
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-secondary" id="voltar">Voltar</button>
+          <button class="btn btn-primary" id="proxima">Próxima</button>
+        </div>
+      </div>
+
+      <div id="resultado">
+        <h4 class="mb-3">Resultado Final</h4>
+        <p id="pontuacaoTexto" class="mb-4"></p>
+        <button class="btn btn-success" id="verGabarito">Ver Gabarito</button>
+      </div>
+
+      <div id="gabarito">
+        <h4 class="mb-3"> Gabarito e Explicações</h4>
+        <ul id="listaGabarito" class="list-group text-start"></ul>
+        <button class="btn btn-primary mt-4" onclick="reiniciar()">Refazer Quiz</button>
+      </div>
+    </div>
+  </main>
+
+  
+  <footer class="bg-primary text-white text-center py-3 mt-auto">
+    <p class="mb-0">© 2025 Todos os direitos reservados para o Deus PACOCHA</p>
+  </footer>
+
+ 
+  
+
+  
+  <script>
+  const perguntas = [
+    { pergunta: "Qual é a capital da França?", imagem: "Imagens/teatro.jpg",
+      opcoes: ["Londres", "Paris", "Roma", "Berlim"], correta: 1,
+      explicacao: "A capital da França é Paris, conhecida como a 'Cidade Luz'." },
+    { pergunta: "Qual planeta é conhecido como Planeta Vermelho?", imagem: "",
+      opcoes: ["Vênus", "Terra", "Marte", "Júpiter"], correta: 2,
+      explicacao: "Marte é chamado de Planeta Vermelho por causa da cor de sua superfície rica em ferro oxidado." },
+    { pergunta: "Qual é o maior animal terrestre?", imagem: "",
+      opcoes: ["Elefante", "Baleia Azul", "Girafa", "Rinoceronte"], correta: 0,
+      explicacao: "O elefante africano é o maior animal terrestre." },
+    { pergunta: "Quem pintou a Mona Lisa?", imagem: "",
+      opcoes: ["Leonardo da Vinci", "Picasso", "Michelangelo", "Van Gogh"], correta: 0,
+      explicacao: "A Mona Lisa foi pintada por Leonardo da Vinci no início do século XVI." },
+    { pergunta: "Qual é o elemento químico representado por 'O'?", imagem: "",
+      opcoes: ["Ouro", "Osmio", "Oxigênio", "Óxido"], correta: 2,
+      explicacao: "A letra 'O' na Tabela Periódica representa o Oxigênio." },
+    { pergunta: "Qual é o maior oceano do planeta?", imagem: "",
+      opcoes: ["Atlântico", "Índico", "Pacífico", "Ártico"], correta: 2,
+      explicacao: "O Oceano Pacífico é o maior e mais profundo oceano da Terra." },
+    { pergunta: "Quem foi o primeiro homem a pisar na Lua?", imagem: "",
+      opcoes: ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Alan Shepard"], correta: 0,
+      explicacao: "Neil Armstrong pisou na Lua em 20 de julho de 1969, na missão Apollo 11." },
+    { pergunta: "Qual é o país com a maior população do mundo?", imagem: "",
+      opcoes: ["China", "Índia", "EUA", "Indonésia"], correta: 1,
+      explicacao: "Desde 2023, a Índia superou a China e passou a ser o país mais populoso." },
+    { pergunta: "Qual é o maior deserto do mundo?", imagem: "",
+      opcoes: ["Saara", "Antártida", "Gobi", "Kalahari"], correta: 1,
+      explicacao: "A Antártida é considerada o maior deserto do mundo, pois quase não chove lá." },
+    { pergunta: "Em que continente fica o Egito?", imagem: "",
+      opcoes: ["África", "Ásia", "Europa", "América"], correta: 0,
+      explicacao: "O Egito está localizado no nordeste da África, com parte no Oriente Médio." }
+  ];
+
+  let indice = 0;
+  let respostasUsuario = new Array(perguntas.length).fill(null);
+ 
+  const textoPergunta = document.getElementById("textoPergunta");
+  const imgPergunta = document.getElementById("imgPergunta");
+  const opcoesDiv = document.getElementById("opcoes");
+  const quizDiv = document.getElementById("quiz");
+  const resultadoDiv = document.getElementById("resultado");
+  const gabaritoDiv = document.getElementById("gabarito");
+  const pontuacaoTexto = document.getElementById("pontuacaoTexto");
+  const listaGabarito = document.getElementById("listaGabarito");
+
+  function mostrarPergunta() {
+    const atual = perguntas[indice];
+    textoPergunta.textContent = `${indice + 1}. ${atual.pergunta}`;
+    if (atual.imagem) {
+      imgPergunta.src = atual.imagem;
+      imgPergunta.style.display = "block";
+    } else {
+      imgPergunta.style.display = "none";
+    }
+
+    opcoesDiv.innerHTML = "";
+    atual.opcoes.forEach((opcao, i) => {
+      const btn = document.createElement("button");
+      btn.className = "btn btn-outline-primary";
+      btn.textContent = opcao;
+      btn.onclick = () => selecionarOpcao(i);
+      opcoesDiv.appendChild(btn);
+    });
+
+    
+    if (respostasUsuario[indice] !== null) {
+      const botoes = opcoesDiv.querySelectorAll("button");
+      botoes.forEach(b => b.classList.add("btn-outline-primary"));
+      const i = respostasUsuario[indice];
+      botoes[i].classList.remove("btn-outline-primary");
+      botoes[i].classList.add("btn-dark" );
+    }
+
+    document.getElementById("proxima").textContent =
+      indice === perguntas.length - 1 ? "Finalizar" : "Próxima";
+  }
+
+  function selecionarOpcao(i) {
+    respostasUsuario[indice] = i; 
+    mostrarPergunta();
+  }
+
+  document.getElementById("proxima").onclick = () => {
+    if (indice < perguntas.length - 1) {
+      indice++;
+      mostrarPergunta();
+    } else {
+      finalizarQuiz();
+    }
+  };
+
+  document.getElementById("voltar").onclick = () => {
+    if (indice > 0) {
+      indice--;
+      mostrarPergunta();
+    }
+  };
+
+  function finalizarQuiz() {
+    let acertos = 0;
+    respostasUsuario.forEach((resp, i) => {
+      if (resp === perguntas[i].correta) acertos++;
+    });
+
+    quizDiv.style.display = "none";
+    resultadoDiv.style.display = "block";
+    pontuacaoTexto.textContent = `Você acertou ${acertos} de ${perguntas.length} perguntas.`;
+  }
+
+  document.getElementById("verGabarito").onclick = () => {
+  resultadoDiv.style.display = "none";
+  gabaritoDiv.style.display = "block";
+  listaGabarito.innerHTML = "";
+
+  perguntas.forEach((p, i) => {
+    const resp = respostasUsuario[i];          
+    const correta = p.correta;                 
+    const acertou = resp === correta;          
+    const textoUsuario = resp === null
+      ? '<span class="text-muted">Não respondida</span>'
+      : `<strong>${p.opcoes[resp]}</strong>`;
+ 
+    
+    const icone = resp === null ? '' 
+      : (acertou ? '<i class="bi bi-check-circle text-success ms-2" title="Acertou"></i>'
+      : '<i class="bi bi-x-circle text-danger ms-2" title="Errou"></i>');
+
+    const item = document.createElement("li");
+    item.className = "list-group-item";
+
+    item.innerHTML = `
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <strong>${i + 1}. ${p.pergunta}</strong><br>
+          <small>Sua escolha: ${textoUsuario} ${icone}</small><br>
+          <small>Resposta correta: <span class="text-success">${p.opcoes[correta]}</span></small>
+        </div>
+      </div>
+      <div class="mt-2"> Explicação: ${p.explicacao}</div>
+    `;
+
+    listaGabarito.appendChild(item);
+  });
+};
+
+    
+
+  function reiniciar() {
+    indice = 0;
+    respostasUsuario.fill(null);
+    gabaritoDiv.style.display = "none";
+    quizDiv.style.display = "block";
+    mostrarPergunta();
+  }
+
+  mostrarPergunta();
+</script>
+
+</body>
+</html>
