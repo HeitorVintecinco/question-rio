@@ -157,7 +157,7 @@
 
     document.getElementById("proxima").textContent =
       indice === perguntas.length - 1 ? "Finalizar" : "Próxima";
-      document.getElementById("proxima") =
+      document.getElementById("proxima").style.diplay =
         indice === perguntas.length - 1 ? classList.remove("btn-primary"); classList.add("btn-success") 
         : classList.remove("btn-success"); classList.add("btn-primary");
   }
@@ -240,5 +240,6 @@
 
 </body>
 </html>
+
 
 
