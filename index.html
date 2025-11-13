@@ -157,10 +157,14 @@
     prox = document.getElementById("proxima")
     volta = document.getElementById("voltar")
       if(indice === 9){
-        prox.classList.remove("btn-primary"); prox.classList.add("btn-success")} 
+        prox.classList.remove("btn-primary");
+        prox.classList.add("btn-warning")
+        prox.textContent = "Finalizar"}
       else{
-        prox.classList.remove("btn-success"); prox.classList.add("btn-primary")} 
-    }
+        prox.classList.remove("btn-warning");
+        prox.classList.add("btn-primary") 
+        prox.textContent = "Próxima" }
+  }
 
   function selecionarOpcao(i) {
     respostasUsuario[indice] = i; 
@@ -240,6 +244,7 @@
 
 </body>
 </html>
+
 
 
 
