@@ -155,7 +155,11 @@
       botoes[i].classList.add("btn-dark" );
     }
     prox = document.getElementById("proxima")
-      indice === 9 ? prox.classList.remove("btn-primary"); prox.classList.add("btn-success") : prox.classList.remove("btn-success"); prox.classList.add("btn-primary") 
+    volta = document.getElementById("voltar")
+      if(indice === 9){
+        prox.classList.remove("btn-primary"); prox.classList.add("btn-success")} 
+      else{
+        prox.classList.remove("btn-success"); prox.classList.add("btn-primary")} 
     }
 
   function selecionarOpcao(i) {
@@ -236,6 +240,7 @@
 
 </body>
 </html>
+
 
 
 
